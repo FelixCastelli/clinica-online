@@ -1,0 +1,132 @@
+.login-container {
+    width: 500px;
+    background-color: white;
+    border-radius: 8px;
+    padding: 2rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    box-sizing: border-box;
+    margin-top: 1rem;
+}
+
+.header-title {
+    margin-bottom: 2rem;
+}
+
+.login-title {
+    color: #6e6e6e;
+    font-size: 1.8rem;
+    font-weight: 500;
+    margin-bottom: 2rem;
+    letter-spacing: 0.5px;
+}
+
+.input-group {
+    margin-bottom: 1.5rem;
+    position: relative;
+    width: 100%;
+}
+
+.input-group label {
+    display: block;
+    color: #2c3e50;
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+    font-weight: normal;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #e0e0e0;
+    border-radius: 4px;
+    font-size: 1rem;
+    color: #2c3e50;
+    background-color: white;
+    box-sizing: border-box;
+}
+
+.input-group input::placeholder {
+    color: #95a5a6;
+}
+
+.button-group {
+    margin-top: 2rem;
+}
+
+.btn-login {
+    background-color: #2980b9;
+    color: white;
+    border: none;
+    padding: 0.75rem 2rem;
+    font-size: 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    width: auto;
+    min-width: 100px;
+}
+
+.btn-login:hover {
+    background-color: #2573a7;
+}
+
+.btn-registro {
+    background-color: #2980b9;
+    color: white;
+    border: none;
+    margin-left: 10.45rem;
+    padding: 0.75rem 2rem;
+    font-size: 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    width: auto;
+    min-width: 100px;
+}
+
+.btn-registro:hover {
+    background-color: #2573a7;
+}
+
+.error-mensaje {
+    margin-top: 1rem;
+    text-align: center;
+    color: #e74c3c;
+    font-size: 0.9rem;
+}
+
+.sample-users {
+    margin-top: 2rem;
+    text-align: center;
+}
+
+.sample-users h3 {
+    font-size: 1.2rem;
+    color: #6e6e6e;
+    margin-bottom: 1rem;
+}
+
+.user-icons {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.user-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    overflow: hidden;
+    cursor: pointer;
+    transition: transform 0.3s;
+}
+
+.user-icon img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.user-icon:hover {
+    transform: scale(1.1);
+}

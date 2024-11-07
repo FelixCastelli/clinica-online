@@ -1,0 +1,83 @@
+<button class="boton-volver" (click)="IrAHome()" class="btn-volver">←</button>
+<button class="usuarios-btn" type="button" (click)="irARegistro()">Agregar Usuarios</button>
+<div class="container">
+    <div class="list-container">
+        <div class="especialistas-list">
+            <h2>Especialistas</h2>
+            <ul>
+                <li *ngFor="let especialista of especialistas" (click)="seleccionarEspecialista(especialista)" [class.selected]="especialistaSeleccionado === especialista" class="list-item">
+                    {{ especialista.nombre }} {{ especialista.apellido }}
+                </li>
+            </ul>
+        </div>
+        <div class="pacientes-list">
+            <h2>Pacientes</h2>
+            <ul>
+                <li *ngFor="let paciente of pacientes" (click)="seleccionarPaciente(paciente)" [class.selected]="pacienteSeleccionado === paciente" class="list-item">
+                    {{ paciente.nombre }} {{ paciente.apellido }}
+                </li>
+            </ul>
+        </div>
+        <div class="administradores-list">
+            <h2>Administradores</h2>
+            <ul>
+                <li *ngFor="let administrador of administradores" (click)="seleccionarAdministrador(administrador)" [class.selected]="administradorSeleccionado === administrador" class="list-item">
+                    {{ administrador.nombre }} {{ administrador.apellido }}
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="details-container">
+        <div class="especialista-detalle" *ngIf="especialistaSeleccionado">
+            <h2>Detalles del Especialista</h2>
+            <p><strong>Nombre:</strong> {{ especialistaSeleccionado.nombre }}</p>
+            <p><strong>Apellido:</strong> {{ especialistaSeleccionado.apellido }}</p>
+            <p><strong>Edad:</strong> {{ especialistaSeleccionado.edad }}</p>
+            <p><strong>DNI:</strong> {{ especialistaSeleccionado.dni }}</p>
+            <p><strong>Especialidad:</strong> {{ especialistaSeleccionado.especialidad }}</p>
+            <p><strong>Email:</strong> {{ especialistaSeleccionado.mail }}</p>
+            <div class="profile-image-container">
+                <img [src]="especialistaSeleccionado.imagenPerfil" alt="Imagen de perfil" class="profile-image" />
+            </div>
+            <div class="validacion-container">
+                <span class="validacion-text">Validado:</span>
+                <div
+                    class="validacion"
+                    [ngClass]="especialistaSeleccionado.validado ? 'validado-true' : 'validado-false'"
+                    (click)="toggleValidado(especialistaSeleccionado)"
+                >
+                    <span *ngIf="especialistaSeleccionado.validado">✔</span>
+                    <span *ngIf="!especialistaSeleccionado.validado">✘</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="paciente-detalle" *ngIf="pacienteSeleccionado">
+            <h2>Detalles del Paciente</h2>
+            <p><strong>Nombre:</strong> {{ pacienteSeleccionado.nombre }}</p>
+            <p><strong>Apellido:</strong> {{ pacienteSeleccionado.apellido }}</p>
+            <p><strong>Edad:</strong> {{ pacienteSeleccionado.edad }}</p>
+            <p><strong>DNI:</strong> {{ pacienteSeleccionado.dni }}</p>
+            <p><strong>Email:</strong> {{ pacienteSeleccionado.mail }}</p>
+            <p><strong>Obra Social:</strong> {{ pacienteSeleccionado.obraSocial }}</p>
+            <div *ngIf="pacienteSeleccionado.imagenesPerfil && pacienteSeleccionado.imagenesPerfil.length > 0" class="profile-images-container">
+                <div *ngFor="let imagen of pacienteSeleccionado.imagenesPerfil" class="profile-image-container">
+                    <img [src]="imagen" alt="Imagen de perfil del paciente" class="profile-image" />
+                </div>
+            </div>
+        </div>
+
+        <div class="administrador-detalle" *ngIf="administradorSeleccionado">
+            <h2>Detalles del Administrador</h2>
+            <p><strong>Nombre:</strong> {{ administradorSeleccionado.nombre }}</p>
+            <p><strong>Apellido:</strong> {{ administradorSeleccionado.apellido }}</p>
+            <p><strong>Edad:</strong> {{ administradorSeleccionado.edad }}</p>
+            <p><strong>DNI:</strong> {{ administradorSeleccionado.dni }}</p>
+            <p><strong>Email:</strong> {{ administradorSeleccionado.mail }}</p>
+            <div class="profile-image-container">
+                <img [src]="administradorSeleccionado.imagenPerfil" alt="Imagen de perfil del administrador" class="profile-image" />
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,319 @@
+.botones-seleccion-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 1rem;
+    gap: 1rem;
+}
+
+.formulario-paciente,
+.formulario-especialista,
+.formulario-administrador {
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
+    max-width: 500px;
+    margin: 2rem auto;
+    padding: 2rem;
+}
+
+.formulario-paciente h2,
+.formulario-especialista h2,
+.formulario-administrador h2 {
+    text-align: center;
+    color: #2c3e50;
+    margin-bottom: 1.5rem;
+}
+
+.formulario-paciente form,
+.formulario-especialista form,
+.formulario-administrador form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.formulario-paciente label,
+.formulario-especialista label,
+.formulario-administrador label {
+    font-weight: 500;
+    color: #34495e;
+    margin-bottom: 0.25rem;
+}
+
+.formulario-paciente input,
+.formulario-especialista input,
+.formulario-administrador input {
+    padding: 0.75rem;
+    border: 1px solid #cbd5e1;
+    border-radius: 4px;
+    font-size: 1rem;
+    transition: border-color 0.3s;
+}
+
+.formulario-paciente input:focus,
+.formulario-especialista input:focus,
+.formulario-administrador input:focus {
+    outline: none;
+    border-color: #2980b9;
+    box-shadow: 0 0 0 2px rgba(41, 128, 185, 0.1);
+}
+
+.formulario-paciente button[type="submit"],
+.formulario-especialista button[type="submit"],
+.formulario-administrador button[type="submit"] {
+    background-color: #2980b9;
+    color: white;
+    padding: 0.75rem;
+    border: none;
+    border-radius: 4px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-top: 1rem;
+}
+
+.formulario-paciente button[type="submit"]:hover,
+.formulario-especialista button[type="submit"]:hover,
+.formulario-administrador button[type="submit"]:hover {
+    background-color: #1f6392;
+}
+
+.formulario-paciente button[type="submit"]:disabled,
+.formulario-especialista button[type="submit"]:disabled,
+.formulario-administrador button[type="submit"]:disabled {
+    background-color: #95a5a6;
+    cursor: not-allowed;
+}
+
+.boton-anadir {
+    background-color: #2980b9;
+    color: white;
+    padding: 0.5rem 1.5rem;
+    border: none;
+    border-radius: 4px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    align-self: center;
+}
+
+.boton-anadir:hover {
+    background-color: #1f6392;
+}
+
+.boton-anadir:disabled {
+    background-color: #95a5a6;
+    cursor: not-allowed;
+}
+
+.formulario-especialista select {
+    padding: 0.75rem;
+    border: 1px solid #cbd5e1;
+    border-radius: 4px;
+    font-size: 1rem;
+    transition: border-color 0.3s;
+    outline: none;
+}
+
+.formulario-especialista select:focus {
+    border-color: #2980b9;
+    box-shadow: 0 0 0 2px rgba(41, 128, 185, 0.1);
+}
+
+.error-message {
+    color: red;
+    font-size: 0.8rem;
+    margin-top: 0.25rem;
+  }
+
+.btn-volver {
+    position: absolute;
+    background-color: #ff3636;
+    color: white;
+    border: none;
+    padding: 0.75rem 2rem;
+    font-size: 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    width: auto;
+    min-width: 100px;
+    text-align: center;
+    left: 10px;
+    top: 10px;
+}
+
+.btn-volver:hover {
+    background-color: #ff4747;
+}
+
+.mensaje-verificacion {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #2980b9;
+    color: white;
+    padding: 20px;
+    border-radius: 5px;
+    z-index: 1000;
+  }
+
+  .boton-especialista {
+    width: 80px;
+    height: 80px;
+    border: none;
+    border-radius: 50%;
+    background-image: url('https://firebasestorage.googleapis.com/v0/b/clinica-online-72196.appspot.com/o/especialista.webp?alt=media&token=cc39bd5a-6c87-4a6a-a990-b29c1859af40');
+    background-size: cover;
+    background-position: center;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.boton-especialista:hover {
+    transform: scale(1.1);
+}
+
+.boton-paciente {
+    width: 80px;
+    height: 80px;
+    border: none;
+    border-radius: 50%;
+    background-image: url('https://firebasestorage.googleapis.com/v0/b/clinica-online-72196.appspot.com/o/paciente.webp?alt=media&token=f2ab856a-da67-4110-9ffb-e17cb9f66626');
+    background-size: cover;
+    background-position: center;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.boton-paciente:hover {
+    transform: scale(1.1);
+}
+
+.boton-administrador {
+    width: 80px;
+    height: 80px;
+    border: none;
+    border-radius: 50%;
+    background-image: url('https://firebasestorage.googleapis.com/v0/b/clinica-online-72196.appspot.com/o/administrador.webp?alt=media&token=92f4d6a6-73fa-4890-9566-58dc6dd03d6c');
+    background-size: cover;
+    background-position: center;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.boton-administrador:hover {
+    transform: scale(1.1);
+}
+
+.sample-users {
+    margin-top: 2rem;
+    text-align: center;
+}
+
+.sample-users h3 {
+    color: #6e6e6e;
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+}
+
+.user-icons {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.user-icon {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+    width: 80px;
+    text-align: center;
+}
+
+.user-icon img {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    border: 2px solid #2980b9;
+    transition: transform 0.3s;
+}
+
+.user-icon:hover img {
+    transform: scale(1.1);
+}
+
+.user-icon span {
+    color: #2c3e50;
+    font-size: 0.9rem;
+    margin-top: 0.5rem;
+}
+
+.imagenes-perfil-container {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    margin-top: 1rem;
+}
+
+.custum-file-upload {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 125px;
+    margin: 0;
+    cursor: pointer;
+}
+
+.custum-file-upload .icon {
+    width: 125px;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px dashed #cbd5e1;
+    border-radius: 50%;
+    overflow: hidden;
+    padding: 2px;
+}
+
+.custum-file-upload .icon img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+.custum-file-upload .text {
+    margin-top: 0.5rem;
+    font-size: 0.85rem;
+    color: #555;
+}
+
+.custum-file-upload input {
+    display: none;
+}
+
+.formulario-especialista .custum-file-upload {
+    margin: 0 auto;
+}
+
+.formulario-administrador .custum-file-upload {
+    margin: 0 auto;
+}
+
+.formulario-paciente form > *,
+.formulario-especialista form > *,
+.formulario-administrador form > * {
+    margin-bottom: 0.75rem;
+}
+
+.formulario-paciente .imagenes-perfil-container,
+.formulario-especialista .custum-file-upload,
+.formulario-administrador .custum-file-upload {
+    margin-top: 0;
+    margin-bottom: 1rem;
+}
+

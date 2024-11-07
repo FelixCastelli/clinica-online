@@ -1,0 +1,35 @@
+<div class="login-container">
+    <div class="header-title">
+      <h1 class="login-title">Acceso a la clinica</h1>
+    </div>
+    
+    <form (ngSubmit)="logIn()">
+      <div class="input-group">
+        <label for="email">Email</label>
+        <input type="email" id="email" [(ngModel)]="email" name="email" placeholder="Email" required>
+      </div>
+      
+      <div class="input-group">
+        <label for="contrasenia">Contraseña</label>
+        <input type="password" id="contrasenia" [(ngModel)]="contrasenia" name="contrasenia" placeholder="Contraseña" required>
+      </div>
+  
+      <div class="button-group">
+        <button class="btn-login" type="submit">Ingresar</button>
+        <button class="btn-registro" type="button" (click)="irARegistro()">Registrarse</button>
+      </div>
+  
+      <div *ngIf="!exito" class="error-mensaje">
+        {{ error }}
+      </div>
+    </form>
+
+    <div class="sample-users">
+      <h3>Acceso Rapido</h3>
+      <div class="user-icons">
+        <div *ngFor="let user of usuariosAccesoRapido" class="user-icon" (click)="accesoRapido(user.mail, user.contrasenia)">
+          <img [src]="user.img">
+        </div>
+      </div>
+    </div>
+</div>

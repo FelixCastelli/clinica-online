@@ -1,0 +1,337 @@
+<div class="botones-seleccion-container">
+  <button class="boton-paciente" (click)="seleccionarPaciente()"></button>
+  <button class="boton-especialista" (click)="seleccionarEspecialista()"></button>
+  <button 
+  *ngIf="isAdmin" 
+  class="boton-administrador" 
+  (click)="seleccionarAdmin()">
+  </button>
+  <button 
+    class="boton-volver btn-volver" 
+    (click)="isAdmin ? IrAUsuarios() : IrABienvenida()">
+    ←
+  </button>
+</div>
+
+<div *ngIf="seleccionPaciente" class="formulario-paciente">
+  <h2>Registro de Paciente</h2>
+  <form [formGroup]="pacienteForm" (ngSubmit)="registrarPaciente()">
+    <label>Nombre:</label>
+    <input formControlName="nombre" type="text" />
+    <div *ngIf="pacienteForm.get('nombre')?.hasError('required') && pacienteForm.get('nombre')?.touched">
+      <small class="error-message">El nombre es requerido.</small>
+    </div>
+    <div *ngIf="pacienteForm.get('nombre')?.hasError('pattern') && pacienteForm.get('nombre')?.touched">
+      <small class="error-message">El nombre solo puede contener letras.</small>
+    </div>
+
+    <label>Apellido:</label>
+    <input formControlName="apellido" type="text" />
+    <div *ngIf="pacienteForm.get('apellido')?.hasError('required') && pacienteForm.get('apellido')?.touched">
+      <small class="error-message">El apellido es requerido.</small>
+    </div>
+    <div *ngIf="pacienteForm.get('apellido')?.hasError('pattern') && pacienteForm.get('apellido')?.touched">
+      <small class="error-message">El apellido solo puede contener letras.</small>
+    </div>
+
+    <label>Edad:</label>
+    <input formControlName="edad" type="number" />
+    <div *ngIf="pacienteForm.get('edad')?.hasError('required') && pacienteForm.get('edad')?.touched">
+      <small class="error-message">La edad es requerida.</small>
+    </div>
+    <div *ngIf="pacienteForm.get('edad')?.hasError('min') && pacienteForm.get('edad')?.touched">
+      <small class="error-message">La edad debe ser de al menos 18 años.</small>
+    </div>
+    <div *ngIf="pacienteForm.get('edad')?.hasError('max') && pacienteForm.get('edad')?.touched">
+      <small class="error-message">La edad no puede exceder los 99 años.</small>
+    </div>
+
+    <label>DNI:</label>
+    <input formControlName="dni" type="text" />
+    <div *ngIf="pacienteForm.get('dni')?.hasError('required') && pacienteForm.get('dni')?.touched">
+      <small class="error-message">El DNI es requerido.</small>
+    </div>
+    <div *ngIf="pacienteForm.get('dni')?.hasError('pattern') && pacienteForm.get('dni')?.touched">
+      <small class="error-message">El DNI debe tener entre 7 y 8 dígitos.</small>
+    </div>
+
+    <label>Obra Social:</label>
+    <input formControlName="obraSocial" type="text" />
+    <div *ngIf="pacienteForm.get('obraSocial')?.hasError('required') && pacienteForm.get('obraSocial')?.touched">
+      <small class="error-message">La obra social es requerida.</small>
+    </div>
+    <div *ngIf="pacienteForm.get('obraSocial')?.hasError('pattern') && pacienteForm.get('obraSocial')?.touched">
+      <small class="error-message">La obra social solo puede contener letras.</small>
+    </div>
+
+    <label>Email:</label>
+    <input formControlName="mail" type="email" />
+    <div *ngIf="pacienteForm.get('mail')?.hasError('required') && pacienteForm.get('mail')?.touched">
+      <small class="error-message">El email es requerido.</small>
+    </div>
+    <div *ngIf="pacienteForm.get('mail')?.hasError('email') && pacienteForm.get('mail')?.touched">
+      <small class="error-message">El email debe ser válido.</small>
+    </div>
+    <div *ngIf="emailEnUso" class="error-message">
+      <small class="error-message">Este email ya está en uso.</small>
+    </div>
+
+    <label>Contraseña:</label>
+    <input formControlName="contrasenia" type="password" />
+    <div *ngIf="pacienteForm.get('contrasenia')?.hasError('required') && pacienteForm.get('contrasenia')?.touched">
+      <small class="error-message">La contraseña es requerida.</small>
+    </div>
+    <div *ngIf="pacienteForm.get('contrasenia')?.hasError('minlength') && pacienteForm.get('contrasenia')?.touched">
+      <small class="error-message">La contraseña debe tener al menos 6 caracteres.</small>
+    </div>
+
+    <div class="imagenes-perfil-container">
+      <label class="custum-file-upload">
+        <div class="icon">
+          @if (imagen1URL) {
+            <img [src]="imagen1URL" style="width: 125px; height: 100px;">
+          } @else {
+            <svg xmlns="http://www.w3.org/2000/svg" fill="" viewBox="0 0 24 24"><g stroke-width="0" id="SVGRepo_bgCarrier"></g><g stroke-linejoin="round" stroke-linecap="round"></g></svg>
+          }
+        </div>
+        <div class="text">
+          @if (!imagen1URL) { <span>Seleccione la primera imagen</span> }
+        </div>
+        <input 
+          required="" 
+          name="imagen1" 
+          type="file" 
+          id="perfil1" 
+          (input)="obtenerImagen($event, 1, 'paciente')"
+          accept="image/*">
+      </label>
+    
+      <label class="custum-file-upload">
+        <div class="icon">
+          @if (imagen2URL) {
+            <img [src]="imagen2URL" style="width: 125px; height: 100px;">
+          } @else {
+            <svg xmlns="http://www.w3.org/2000/svg" fill="" viewBox="0 0 24 24"><g stroke-width="0" id="SVGRepo_bgCarrier"></g><g stroke-linejoin="round" stroke-linecap="round"></g></svg>
+          }
+        </div>
+        <div class="text">
+          @if (!imagen2URL) { <span>Seleccione la segunda imagen</span> }
+        </div>
+        <input 
+          required="" 
+          name="imagen2" 
+          type="file" 
+          id="perfil2" 
+          (input)="obtenerImagen($event, 2, 'paciente')"
+          accept="image/*">
+      </label>
+    </div>
+    
+    <div *ngIf="pacienteForm.get('imagenesPerfil')?.hasError('required') && pacienteForm.get('imagenesPerfil')?.touched">
+      <small class="error-message">Las imágenes de perfil son requeridas.</small>
+    </div>
+
+    <button type="submit" [disabled]="!pacienteForm.valid">Registrar Paciente</button>
+  </form>
+</div>
+
+<div *ngIf="seleccionEspecialista" class="formulario-especialista">
+  <h2>Registro de Especialista</h2>
+  <form [formGroup]="especialistaForm" (ngSubmit)="registrarEspecialista()">
+    <label>Nombre:</label>
+    <input formControlName="nombre" type="text" />
+    <div *ngIf="especialistaForm.get('nombre')?.hasError('required') && especialistaForm.get('nombre')?.touched">
+      <small class="error-message">El nombre es requerido.</small>
+    </div>
+    <div *ngIf="especialistaForm.get('nombre')?.hasError('pattern') && especialistaForm.get('nombre')?.touched">
+      <small class="error-message">El nombre solo puede contener letras.</small>
+    </div>
+
+    <label>Apellido:</label>
+    <input formControlName="apellido" type="text" />
+    <div *ngIf="especialistaForm.get('apellido')?.hasError('required') && especialistaForm.get('apellido')?.touched">
+      <small class="error-message">El apellido es requerido.</small>
+    </div>
+    <div *ngIf="especialistaForm.get('apellido')?.hasError('pattern') && especialistaForm.get('apellido')?.touched">
+      <small class="error-message">El apellido solo puede contener letras.</small>
+    </div>
+
+    <label>Edad:</label>
+    <input formControlName="edad" type="number" />
+    <div *ngIf="especialistaForm.get('edad')?.hasError('required') && especialistaForm.get('edad')?.touched">
+      <small class="error-message">La edad es requerida.</small>
+    </div>
+    <div *ngIf="especialistaForm.get('edad')?.hasError('min') && especialistaForm.get('edad')?.touched">
+      <small class="error-message">La edad debe ser de al menos 18 años.</small>
+    </div>
+    <div *ngIf="especialistaForm.get('edad')?.hasError('max') && especialistaForm.get('edad')?.touched">
+      <small class="error-message">La edad no puede exceder los 99 años.</small>
+    </div>
+
+    <label>DNI:</label>
+    <input formControlName="dni" type="text" />
+    <div *ngIf="especialistaForm.get('dni')?.hasError('required') && especialistaForm.get('dni')?.touched">
+      <small class="error-message">El DNI es requerido.</small>
+    </div>
+    <div *ngIf="especialistaForm.get('dni')?.hasError('pattern') && especialistaForm.get('dni')?.touched">
+      <small class="error-message">El DNI debe tener entre 7 y 8 dígitos.</small>
+    </div>
+
+    <label>Selecciona Especialidad:</label>
+    <select formControlName="especialidad">
+      <option value="" disabled selected>Seleccione una especialidad</option>
+      <option *ngFor="let especialidad of especialidades" [value]="especialidad">{{ especialidad }}</option>
+    </select>
+    <div *ngIf="especialistaForm.get('especialidad')?.hasError('required') && especialistaForm.get('especialidad')?.touched">
+      <small class="error-message">La especialidad es requerida.</small>
+    </div>
+
+    <label>Agregar nueva especialidad:</label>
+    <input formControlName="nuevaEspecialidad" type="text" placeholder="Ingrese nueva especialidad" />
+    <button type="button" (click)="agregarEspecialidad()" [disabled]="!especialistaForm.get('nuevaEspecialidad')?.value" class="boton-anadir">Añadir</button>
+
+    <label>Email:</label>
+    <input formControlName="mail" type="email" />
+    <div *ngIf="especialistaForm.get('mail')?.hasError('required') && especialistaForm.get('mail')?.touched">
+      <small class="error-message">El email es requerido.</small>
+    </div>
+    <div *ngIf="especialistaForm.get('mail')?.hasError('email') && especialistaForm.get('mail')?.touched">
+      <small class="error-message">El email debe ser válido.</small>
+    </div>
+    <div *ngIf="emailEnUso" class="error-message">
+      <small class="error-message">Este email ya está en uso.</small>
+    </div>
+
+    <label>Contraseña:</label>
+    <input formControlName="contrasenia" type="password" />
+    <div *ngIf="especialistaForm.get('contrasenia')?.hasError('required') && especialistaForm.get('contrasenia')?.touched">
+      <small class="error-message">La contraseña es requerida.</small>
+    </div>
+    <div *ngIf="especialistaForm.get('contrasenia')?.hasError('minlength') && especialistaForm.get('contrasenia')?.touched">
+      <small class="error-message">La contraseña debe tener al menos 6 caracteres.</small>
+    </div>
+
+<label class="custum-file-upload">
+  <div class="icon">
+    @if (imagen1URL) {
+      <img [src]="imagen1URL" style="width: 125px; height: 100px;">
+    } @else {
+      <svg xmlns="http://www.w3.org/2000/svg" fill="" viewBox="0 0 24 24">
+        <g stroke-width="0" id="SVGRepo_bgCarrier"></g>
+        <g stroke-linejoin="round" stroke-linecap="round"></g>
+      </svg>
+    }
+  </div>
+  <div class="text">
+    @if (!imagen1URL) { <span>Seleccione una imagen</span> }
+  </div>
+  <input 
+    #fileInput
+    type="file" 
+    id="perfil" 
+    (input)="obtenerImagen($event, 1, 'especialista')"
+    accept="image/*">
+</label>
+<div *ngIf="especialistaForm.get('imagenPerfil')?.hasError('required') && especialistaForm.get('imagenPerfil')?.touched">
+  <small class="error-message">La imagen de perfil es requerida.</small>
+</div>
+
+    <button type="submit" [disabled]="!especialistaForm.valid">Registrar Especialista</button>
+  </form>
+</div>
+
+<div *ngIf="seleccionAdmin" class="formulario-administrador">
+  <h2>Registro de Administrador</h2>
+  <form [formGroup]="adminForm" (ngSubmit)="registrarAdmin()">
+    <label>Nombre:</label>
+    <input formControlName="nombre" type="text" />
+    <div *ngIf="adminForm.get('nombre')?.hasError('required') && adminForm.get('nombre')?.touched">
+      <small class="error-message">El nombre es requerido.</small>
+    </div>
+    <div *ngIf="adminForm.get('nombre')?.hasError('pattern') && adminForm.get('nombre')?.touched">
+      <small class="error-message">El nombre solo puede contener letras.</small>
+    </div>
+
+    <label>Apellido:</label>
+    <input formControlName="apellido" type="text" />
+    <div *ngIf="adminForm.get('apellido')?.hasError('required') && adminForm.get('apellido')?.touched">
+      <small class="error-message">El apellido es requerido.</small>
+    </div>
+    <div *ngIf="adminForm.get('apellido')?.hasError('pattern') && adminForm.get('apellido')?.touched">
+      <small class="error-message">El apellido solo puede contener letras.</small>
+    </div>
+
+    <label>Edad:</label>
+    <input formControlName="edad" type="number" />
+    <div *ngIf="adminForm.get('edad')?.hasError('required') && adminForm.get('edad')?.touched">
+      <small class="error-message">La edad es requerida.</small>
+    </div>
+    <div *ngIf="adminForm.get('edad')?.hasError('min') && adminForm.get('edad')?.touched">
+      <small class="error-message">La edad debe ser de al menos 18 años.</small>
+    </div>
+    <div *ngIf="adminForm.get('edad')?.hasError('max') && adminForm.get('edad')?.touched">
+      <small class="error-message">La edad no puede exceder los 99 años.</small>
+    </div>
+
+    <label>DNI:</label>
+    <input formControlName="dni" type="text" />
+    <div *ngIf="adminForm.get('dni')?.hasError('required') && adminForm.get('dni')?.touched">
+      <small class="error-message">El DNI es requerido.</small>
+    </div>
+    <div *ngIf="adminForm.get('dni')?.hasError('pattern') && adminForm.get('dni')?.touched">
+      <small class="error-message">El DNI debe tener entre 7 y 8 dígitos.</small>
+    </div>
+
+    <label>Email:</label>
+    <input formControlName="mail" type="email" />
+    <div *ngIf="adminForm.get('mail')?.hasError('required') && adminForm.get('mail')?.touched">
+      <small class="error-message">El email es requerido.</small>
+    </div>
+    <div *ngIf="adminForm.get('mail')?.hasError('email') && adminForm.get('mail')?.touched">
+      <small class="error-message">El email debe ser válido.</small>
+    </div>
+    <div *ngIf="emailEnUso" class="error-message">
+      <small class="error-message">Este email ya está en uso.</small>
+    </div>
+
+    <label>Contraseña:</label>
+    <input formControlName="contrasenia" type="password" />
+    <div *ngIf="adminForm.get('contrasenia')?.hasError('required') && adminForm.get('contrasenia')?.touched">
+      <small class="error-message">La contraseña es requerida.</small>
+    </div>
+    <div *ngIf="adminForm.get('contrasenia')?.hasError('minlength') && adminForm.get('contrasenia')?.touched">
+      <small class="error-message">La contraseña debe tener al menos 6 caracteres.</small>
+    </div>
+
+<label class="custum-file-upload">
+  <div class="icon">
+    @if (imagen1URL) {
+      <img [src]="imagen1URL" style="width: 125px; height: 100px;">
+    } @else {
+      <svg xmlns="http://www.w3.org/2000/svg" fill="" viewBox="0 0 24 24">
+        <g stroke-width="0" id="SVGRepo_bgCarrier"></g>
+        <g stroke-linejoin="round" stroke-linecap="round"></g>
+      </svg>
+    }
+  </div>
+  <div class="text">
+    @if (!imagen1URL) { <span>Seleccione una imagen</span> }
+  </div>
+  <input 
+    #fileInput
+    type="file" 
+    id="perfil" 
+    (input)="obtenerImagen($event, 1, 'administrador')"
+    accept="image/*">
+</label>
+<div *ngIf="adminForm.get('imagenPerfil')?.hasError('required') && adminForm.get('imagenPerfil')?.touched">
+  <small class="error-message">La imagen de perfil es requerida.</small>
+</div>
+
+    <button type="submit" [disabled]="!adminForm.valid">Registrar Administrador</button>
+  </form>
+</div>
+
+<div *ngIf="mostrarMensaje" class="mensaje-verificacion">
+  {{ mensajeVerificacion }}
+</div>
